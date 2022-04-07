@@ -1,0 +1,9 @@
+.new-pothole{
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    width: fit-content;
+    height: fit-content;
+}

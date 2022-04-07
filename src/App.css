@@ -1,6 +1,6 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 * {
   box-sizing: border-box;
@@ -18,4 +18,5 @@ body {
 
 .mapboxgl-ctrl {
   height: fit-content;
+  width: fit-content;
 }

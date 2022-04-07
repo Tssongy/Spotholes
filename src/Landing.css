@@ -1,7 +1,17 @@
+.landing-page {
+    background-color: #ff7f11;
+}
+
 .header-nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 10vh;
     margin: 0 1em;
+}
+
+.header-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1em;
 }

@@ -48,7 +48,7 @@ function App() {
 
   const handleAddClick = (e) => {
     const {lng, lat} = e.lngLat
-    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${process.env.REACT_APP_MAPBOX}`)
+    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${process.env.local.REACT_APP_MAPBOX}`)
     .then((res) =>
       setNewPothole({
         lat,

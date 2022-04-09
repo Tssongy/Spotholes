@@ -21,7 +21,7 @@ function MapView({ viewState, currentPlaceId, potholeData, newPothole, location,
         ref={mapRef}
         onLoad={() => {
           const directions = new MapboxDirections({
-            accessToken: process.env.local.REACT_APP_MAPBOX,
+            accessToken: process.env.REACT_APP_MAPBOX,
             interactive: false
           })
           !showNav && mapRef.current.addControl(
@@ -34,7 +34,7 @@ function MapView({ viewState, currentPlaceId, potholeData, newPothole, location,
         onMove={evt => setViewState(evt.viewState)}
         style={{width: '100%', height: '100vh'}}
         mapStyle="mapbox://styles/mapbox/streets-v9"
-        mapboxAccessToken={process.env.local.REACT_APP_MAPBOX}
+        mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         onDblClick={handleAddClick}
       >
         {potholeData.map((pothole, id) => (

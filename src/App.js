@@ -27,12 +27,51 @@ function App() {
   const [location, setLocation] = React.useState(null);
   const [size, setSize] = React.useState(null);
   const [photo, setPhoto] = React.useState('https://ichef.bbci.co.uk/news/976/cpsprodpb/F4AD/production/_117773626_mediaitem117773622.jpg');
-  const [userName, setUserName] = React.useState('anon');
+  const [currentUserName, setCurrentUserName] = React.useState('anon');
   const [showAbout, setShowAbout] = React.useState(true)
   const [showNav, setShowNav] = React.useState(false)
-  // const [date, setDate] = React.useState('2022-04-06');
+  const [showLogin, setShowLogin] = React.useState(false)
+  const [showSignup, setShowSignup] = React.useState(false)
+  const [errorMsg, setErrorMsg] = React.useState('')
+  const [showInstructions, setShowInstructions] = React.useState(false)
 
 
+  const handleSignup = (e) => {
+    e.preventDefault();
+    const form = e.target
+    const data = Object.fromEntries(new FormData(form))
+
+    axios.post("/users", data)
+         .then(res => res.data)
+         .then(userName => {
+            console.log(userName)
+            setCurrentUserName(userName)
+         })
+  }
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target
+    const data = Object.fromEntries(new FormData(form))
+
+    axios.post('/sessions', data)
+         .then(res => res.data)
+         .then((userInfo) => {
+           console.log(userInfo)
+           setCurrentUserName(userInfo.userName)
+           setShowLogin(false)
+         })
+         .catch(() => setErrorMsg('Invalid email or password'))
+  }
+
+  const handleLogout = () => {
+    axios.delete('/sessions')
+         .then(res => res.data)
+         .then(res => {
+           console.log(res.message)
+           setCurrentUserName('anon')
+         })
+  }
 
   const handleMarkerClick = (lng, lat, id) => {
     setCurrentPlaceId(null)
@@ -66,12 +105,11 @@ function App() {
       location: location === null ? newPothole.location:location,
       size,
       photo,
-      userName,
+      currentUserName,
       date: new Date()
     }
-    console.log(newPotholeData.date)
 
-    axios.post('/potholeData', newPotholeData)
+    axios.post('/potholes', newPotholeData)
         .then((res) => {
           console.log(res)
           setPotholeData([...potholeData, res.data])
@@ -84,7 +122,7 @@ function App() {
 
 
   React.useEffect(() => {
-    axios.get('/potholeData')
+    axios.get('/potholes')
         .then(res => res.data)
         .then(data => setPotholeData(data))
         .catch(err => console.log(err))
@@ -102,7 +140,8 @@ function App() {
         location={location}
         size={size}
         photo={photo}
-        userName={userName}
+        currentUserName={currentUserName}
+        setCurrentUserName={setCurrentUserName}
         handleAddClick={handleAddClick}
         handleMarkerClick={handleMarkerClick}
         handleSubmit={handleSubmit}
@@ -114,6 +153,17 @@ function App() {
         setShowAbout={setShowAbout}
         showNav={showNav}
         setShowNav={setShowNav}
+        showLogin={showLogin}
+        setShowLogin={setShowLogin}
+        showSignup={showSignup}
+        setShowSignup={setShowSignup}
+        handleSignup={handleSignup}
+        handleLogout={handleLogout}
+        handleLogin={handleLogin}
+        errorMsg={errorMsg}
+        setErrorMsg={setErrorMsg}
+        showInstructions={showInstructions}
+        setShowInstructions={setShowInstructions}
       />
     </div>
   );

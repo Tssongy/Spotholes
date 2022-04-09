@@ -24,7 +24,7 @@
     cursor: pointer;
 }
 
-.about {
+.about, .log-in, .sign-up, .instructions {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -49,17 +49,28 @@
     font-weight: bold;
 }
 
+.stats-instructions{
+    height: 30vh;
+}
+
 .stats-container {
     border-radius: 8px;
     width: 40%;
+    /* height: 100%; */
     /* padding: 0.5em; */
     background-color: #99C19D;
+    overflow: hidden;
 }
 
-.stats-container h6 {
+.stats-container h6, .instructions p span {
     text-decoration: underline;
     margin-top: 0.5em;
     margin-bottom: 0;
+}
+
+.instructions p span {
+    cursor: pointer;
+    color: whitesmoke;
 }
 
 .stats-container p {
@@ -99,6 +110,19 @@
     font-size: 1.3em;
 }
 
+.get-sign-up-btn {
+    text-decoration: underline;
+    color: whitesmoke;
+}
+
+.error {
+    color: tomato;
+}
+
+.instructions img {
+    width: 100%;
+    height: 70%;
+}
 
 
 

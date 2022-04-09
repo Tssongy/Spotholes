@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Map, { Marker, Popup, NavigationControl, GeolocateControl, useMap, MapProvider } from 'react-map-gl';
+import Map, { Marker, Popup, NavigationControl, GeolocateControl, useMap, MapProvider, useMemo } from 'react-map-gl';
 import * as timeago from 'timeago.js';
 import Overlay from './Overlay';
 import './MapView.css'
@@ -9,15 +9,15 @@ import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 
 
 
-function MapView({ viewState, currentPlaceId, potholeData, newPothole, location, size, photo, userName, handleAddClick, handleMarkerClick, handleSubmit, setViewState, setNewPothole, setSize, setPhoto, showAbout, setShowAbout, showNav, setShowNav}) {
+function MapView({ viewState, currentPlaceId, potholeData, newPothole, location, size, photo, currentUserName, setCurrentUserName, handleAddClick, handleMarkerClick, handleSubmit, setViewState, setNewPothole, setSize, setPhoto, showAbout, setShowAbout, showNav, setShowNav, showLogin, setShowLogin, showSignup, setShowSignup, handleSignup, handleLogout, handleLogin, errorMsg, setErrorMsg, showInstructions, setShowInstructions}) {
   const mapRef = React.useRef();
   
 
   return (
     <section className="view-page">
-      <div className="view-map" style={showAbout?{filter: "blur(5px)"}:{filter: 'none'}}>
+      <div className="view-map" style={showAbout || showLogin || showSignup || showInstructions ? {filter: "blur(5px)"}:{filter: 'none'}}>
       {/* <MapProvider> */}
-      <Map
+      <Map reuseMaps
         ref={mapRef}
         onLoad={() => {
           const directions = new MapboxDirections({
@@ -42,7 +42,7 @@ function MapView({ viewState, currentPlaceId, potholeData, newPothole, location,
             <Marker 
               longitude={pothole.lng} 
               latitude={pothole.lat}
-              style={{color:'red'}}
+              style={currentUserName !== 'anon' && pothole.username === currentUserName ? {color: 'black'} : {color:'red'}}
               >
               <span key={id}
                 className="material-icons" 
@@ -99,12 +99,8 @@ function MapView({ viewState, currentPlaceId, potholeData, newPothole, location,
                   <option value="medium">medium</option>
                   <option value="large">large</option>
                 </select>
-                {/* <input 
-                  type="text" 
-                  placeholder='small/medium/large'
-                  onChange={(e) => setSize(e.target.value)}
-                /> */}
-                <label>Photo: </label>
+                
+                <label>Photo(optional): </label>
                 <input 
                   type="text" 
                   placeholder='Insert URL' 
@@ -137,6 +133,19 @@ function MapView({ viewState, currentPlaceId, potholeData, newPothole, location,
       <Overlay 
         showAbout={showAbout}
         setShowAbout={setShowAbout}
+        showLogin={showLogin}
+        setShowLogin={setShowLogin}
+        showSignup={showSignup}
+        setShowSignup={setShowSignup}
+        handleSignup={handleSignup}
+        currentUserName={currentUserName}
+        setCurrentUserName={setCurrentUserName}
+        handleLogout={handleLogout}
+        handleLogin={handleLogin}
+        errorMsg={errorMsg}
+        setErrorMsg={setErrorMsg}
+        showInstructions={showInstructions}
+        setShowInstructions={setShowInstructions}
       />
     </section>
   )

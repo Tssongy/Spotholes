@@ -1,0 +1,45 @@
+/* <Popup /> */
+.mapboxgl-popup-content {
+    /* background: white */
+    border-radius: 10px;
+    width: 50vw;
+    height: fit-content;
+    /* max-height: 50vh; */
+}
+
+.info-card label, .new-pothole label{
+    font-weight: bold;
+    font-size: 1em;
+    width: 100%;
+    /* border-bottom: 1px solid tomato; */
+}
+
+.info-card img {
+    width: 100%;
+    /* height: 100%; */
+}
+
+.new-pothole{
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+}
+
+/* .new-pothole label {
+    margin-bottom: 1em;
+} */
+
+.new-pothole input, select {
+    border: 1px solid black;
+}
+
+select {
+    width: 30%;
+}
+
+.submit-btn {
+    margin-top: 1em;
+    width: 30%;
+}
+
+

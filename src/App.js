@@ -3,27 +3,33 @@ import './App.css';
 import './Landing.css'
 import './NewPothole.css'
 import Landing from './Landing';
-// import View from './View';
+import MapView from './MapView';
 import * as React from 'react';
-import Map, { Marker, Popup } from 'react-map-gl';
 import axios from 'axios'
-import * as timeago from 'timeago.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Carousel from 'react-bootstrap/Carousel'
+
 
 function App() {
   // state management
   const [viewState, setViewState] = React.useState({
     longitude: 151.18,
     latitude: -33.87,
-    zoom: 11
+    zoom: 11,
+    maxBounds: [
+      [104.87, -45.62],
+      [175.70, -4.75]
+    ]
   })
   const [currentPlaceId, setCurrentPlaceId] = React.useState(null)
   const [potholeData, setPotholeData] = React.useState([])
   const [newPothole, setNewPothole] = React.useState(null)
-  const [showPopup, setShowPopup] = React.useState(false);
   const [location, setLocation] = React.useState(null);
   const [size, setSize] = React.useState(null);
-  const [photo, setPhoto] = React.useState(null);
+  const [photo, setPhoto] = React.useState('https://ichef.bbci.co.uk/news/976/cpsprodpb/F4AD/production/_117773626_mediaitem117773622.jpg');
   const [userName, setUserName] = React.useState('anon');
+  const [showAbout, setShowAbout] = React.useState(true)
+  const [showNav, setShowNav] = React.useState(false)
   // const [date, setDate] = React.useState('2022-04-06');
 
 
@@ -33,11 +39,11 @@ function App() {
     setTimeout(() => {
       setCurrentPlaceId(id)
     }, 0)
-    // setShowPopup(false)
-    // setTimeout(() => {
-    //   setShowPopup(true)
-    // }, 0)
-    setViewState({...viewState, longitude: lng, latitude: lat})
+    setViewState({
+      ...viewState, 
+      longitude: lng, 
+      latitude: lat
+    })
   }
 
   const handleAddClick = (e) => {
@@ -86,89 +92,29 @@ function App() {
 
   return (
     <div className="App">
-      <Landing />
-      {/* <View /> */}
-      <section className="view-page">
-      <Map
-        {...viewState}
-        onMove={evt => setViewState(evt.viewState)}
-        style={{width: '100%', height: '100vh'}}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX}
-        onDblClick={handleAddClick}
-      >
-        {potholeData.map((pothole, id) => (
-          <>
-            <Marker longitude={pothole.lng} latitude={pothole.lat}>
-              <span key={id}
-                className="material-icons" 
-                onClick={() => handleMarkerClick(pothole.lng, pothole.lat, id)}
-                >
-                room
-              </span>
-            </Marker>
-            {id === currentPlaceId && (
-              <Popup longitude={pothole.lng} latitude={pothole.lat}
-                anchor="bottom"
-                
-                >
-                <div className="info-card">
-                  <label>Address</label>
-                  <h4>{pothole.location}</h4>
-                  <label>Size</label>
-                  <h4>{pothole.size}</h4>
-                  <label>Photo</label>
-                  <h4>{pothole.photo}</h4>
-                  <label>Reported by</label>
-                  <h4>{pothole.username}</h4>
-                  <label>date</label>
-                  <h4>{timeago.format(pothole.date)}</h4>
-                </div>
-              </Popup>)}
-            </>
-        ))}
-
-        {newPothole && (
-          <>
-            <Marker longitude={newPothole.lng} latitude={newPothole.lat}>
-              <span className="material-icons">
-                room
-              </span>
-            </Marker>
-            <Popup longitude={newPothole.lng} latitude={newPothole.lat}
-            anchor="left"
-            onClose={() => setNewPothole(null)}
-            offset={4}
-            >
-              <form className='new-pothole' onSubmit={handleSubmit}>
-                <h3>Add a pothole!</h3>
-                <label>location: </label>
-                <textarea 
-                  type="text" 
-                  value={newPothole.location}
-                  // onChange={(e) => setLocation(e.target.value)}
-                  disabled={true}
-                />
-                <label>Size: </label>
-                <input 
-                  type="text" 
-                  placeholder='small/medium/large'
-                  onChange={(e) => setSize(e.target.value)}
-                />
-                <label>Photo: </label>
-                <input 
-                  type="text" 
-                  placeholder='Insert URL' 
-                  onChange={(e) => setPhoto(e.target.value)}
-                  />
-                <button>Submit</button>
-              </form>
-            </Popup>
-          </>
-        )}
-
-      </Map>
-      </section>
+      {/* <Landing /> */}
+      {/* <About /> */}
+      <MapView 
+        viewState={viewState}
+        currentPlaceId={currentPlaceId}
+        potholeData={potholeData}
+        newPothole={newPothole}
+        location={location}
+        size={size}
+        photo={photo}
+        userName={userName}
+        handleAddClick={handleAddClick}
+        handleMarkerClick={handleMarkerClick}
+        handleSubmit={handleSubmit}
+        setViewState={setViewState}
+        setNewPothole={setNewPothole}
+        setSize={setSize}
+        setPhoto={setPhoto}
+        showAbout={showAbout}
+        setShowAbout={setShowAbout}
+        showNav={showNav}
+        setShowNav={setShowNav}
+      />
     </div>
   );
 }

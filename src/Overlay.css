@@ -1,0 +1,124 @@
+.header-nav-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 1.5em;
+    font-weight: bolder;
+    font-family: 'Rubik Moonrocks', cursive;
+}
+
+.header-nav-container nav{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 1em;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 1em;
+}
+
+.nav-list li {
+    cursor: pointer;
+}
+
+.about {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+    max-width: 70vw;
+    height: fit-content;
+    padding: 1em;
+    text-align: center;
+    border-radius: 1em;
+    background-color: #468B2D;
+    font-family: 'Gugi', cursive;
+}
+
+.about h1 {
+    color: white;
+}
+
+.desc {
+    margin: 1em 2em;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.stats-container {
+    border-radius: 8px;
+    width: 40%;
+    /* padding: 0.5em; */
+    background-color: #99C19D;
+}
+
+.stats-container h6 {
+    text-decoration: underline;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+.stats-container p {
+    font-size: 3em;
+    color: #154979;
+    margin: 0;
+}
+
+
+/* .about img {
+    filter: blur(5px);
+} */
+
+.stats {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1em;
+    margin-bottom: 1em;
+}
+
+.start-btn {
+    border-radius: 12px;
+    background-color: #1F3962;
+    padding: 0.5em;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: white;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.close-btn {
+    position: absolute;
+    top:1%;
+    right:1%;
+    cursor: pointer;
+    font-size: 1.3em;
+}
+
+
+
+
+/* .go-btn{
+    position: absolute;
+    bottom: 15%;
+    right: 0.6%;
+    background-color: whitesmoke;
+    border-radius: 5px;
+} */
+
+/* .mapbox-directions-instructions {
+    display:none;
+} */
+/* 
+.mapboxgl-ctrl-top-left {
+    display:none;
+} */
+
+
+
+
+

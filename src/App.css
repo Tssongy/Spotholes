@@ -8,14 +8,6 @@
   /* height: 100% */
 }
 
-body {
-  margin: 0 2em;
-}
-
-.view-page {
-  border: 1px solid red;
-}
-
 .mapboxgl-ctrl {
   height: fit-content;
   width: fit-content;

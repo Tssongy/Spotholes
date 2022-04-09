@@ -36,8 +36,6 @@ function MapView({ viewState, currentPlaceId, potholeData, newPothole, location,
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         onDblClick={handleAddClick}
-        
-        // interactive={!showAbout}
       >
         {potholeData.map((pothole, id) => (
           <>
